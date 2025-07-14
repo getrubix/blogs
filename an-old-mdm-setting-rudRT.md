@@ -5,11 +5,10 @@ categories:
 - security
 - powershell
 date: Thu, 02 May 2024 20:04:51 +0000
-description: >
-  Every now and then, believe it or not, we still come across tenants that do NOT
+description: 'Every now and then, believe it or not, we still come across tenants that do NOT
   have the MDM Authority set to Intune. You may encounter this if you can’t edit
   the Enrollment Status Page (ESP) or Enrollment restrictions profiles - this of
-  course needs to be updated.
+  course needs to be updated.'
 slug: an-old-mdm-setting-rudRT
 tags:
 - intune
@@ -21,12 +20,14 @@ title: An Old MDM Setting
 
 Every now and then, believe it or not, we still come across tenants that do NOT have the MDM Authority set to Intune. You may encounter this if you can’t edit the Enrollment Status Page (ESP) or Enrollment restrictions profiles - this of course needs to be updated in order to fully manage your devices.
 
+## Hopefully you'll never see this
+---
+
 You may notice however that [previously-documented instructions](https://learn.microsoft.com/en-us/mem/intune/fundamentals/mdm-authority-set) are no longer valid, as there is no orange banner or menu you can manually navigate to change the setting. Even though updated tenants should have it set automatically, there are random cases where it never got configured.
 
 Rudy Ooms previously posted a [great blog](https://call4cloud.nl/2021/01/intune-battle-of-the-mdm-authority/) detailing this issue and a scripted solution. I went ahead and updated his script to a module-less version with an app registration. You’ll of course need to throw in your tenant id, application id, and secret value, and the app registration will need granted consent for the permissions listed in the comments.
 
-###############  App registration / token  ##################
-
+``` pwsh
 \[Net.ServicePointManager\]::SecurityProtocol = \[Net.SecurityProtocolType\]::Tls12
 Add-Type -AssemblyName System.Web
 
@@ -51,7 +52,6 @@ $headers = New-Object "System.Collections.Generic.Dictionary\[\[String\],\[Strin
 $headers.Add("Authorization", $token)
 $headers.Add("Content-Type", "application/json")
 
-##############################################################
 
 # Update the MDM Authority to Intune
 
@@ -65,3 +65,9 @@ catch
     $message = $\_.Exception.Message
     Write-Host "Failed to set MDM Authority: $message"
 }
+```
+
+## But if you do...
+---
+
+As mentioned before, hopefully you won't run into this as it is becoming less and less common everyday. But in the event you do stumble upon it, hopefully this gives you the solution you need to make quick work of it.

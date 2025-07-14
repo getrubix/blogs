@@ -1,11 +1,11 @@
 ---
 author: GuestUser
 date: Fri, 19 Jan 2024 19:58:28 +0000
-description: '"Hey everyone - I figured it was about time I come back and contribute
+description: 'Hey everyone - I figured it was about time I come back and contribute
   some written content after about 3 years (my lord).Yes, I still work with very closely
   with Steve – since I finally showed myself in one of his latest videos, I figured
-  I would come"'
-slug: custom-intune-reporting-PVN2O
+  I would come'
+slug: custom-intune-reporting
 thumbnail: https://getrubixsitecms.blob.core.windows.net/public-assets/content/v1/thumbnails/custom-intune-reporting-PVN2O_thumbnail.jpg
 title: Custom Intune Reporting
 ---
@@ -14,31 +14,31 @@ Hey everyone - I figured it was about time I come back and contribute some writt
 
 Yes, I still work with very closely with Steve – since I finally showed myself in one of his latest videos, I figured I would come back with a hefty PowerShell script that should help you in some of your management/reporting needs. I will do my best to post more regularly as we keep on keeping in the modern management world.
 
-Windows Reporting Script
-------------------------
+## Windows Reporting Script
+---
 
 To summarize, this is a custom reporting script that I’ve used with a number of my customers. It has changed and evolved a bit over time… It has been particularly helpful when tracking changes around co-management workloads, or onboarding to Windows Updates for Business policies; it also combines some other data that normally isn’t visible in Intune’s device list (group memberships, logged on users, and much more). While there are other solutions in the wild between scripting, log analytics and even Power BI, I wanted something I could run locally with just PowerShell (and maybe organize in excel).
 
 A big thank you to my colleague Logan Lautt for helping with the feature update exporting and several other functions/graph calls/syntax corrections throughout the script.
 
-Step 1: Application Registration
---------------------------------
+## Step 1: Application Registration
+---
 
 In order to retrieve the necessary data, the script will require an app registration with the following application-based permissions:
 
--   Device.Read.All
+-   `Device.Read.All`
     
--   DeviceManagementConfiguration.ReadWrite.All
+-   `DeviceManagementConfiguration.ReadWrite.All`
     
--   DeviceManagementManagedDevices.Read.All
+-   `DeviceManagementManagedDevices.Read.All`
     
--   DeviceManagementServiceConfig.Read.All
+-   `DeviceManagementServiceConfig.Read.All`
     
--   Directory.Read.All
+-   `Directory.Read.All`
     
--   Group.Read.All
+-   `Group.Read.All`
     
--   GroupMember.Read.All
+-   `GroupMember.Read.All`
     
 
 You might be curious as to why the second ReadWrite permission is required… well this is simply due to the POST call utilized for the Feature Update report export (deviceManagement/reports/exportJobs). We need to submit the reporting payload we are requesting from Intune – we can then GET the status of the export job, and once it is ready (not null) we can download and import the data. You can likely write similar code for other built-in reports that have the generate and export functions.
@@ -49,8 +49,8 @@ Please note – this version of the script uses application-based API permission
 
 Having said that, I am only using the deviceManagement calls for encryption status.
 
-Step 2: Running the script
---------------------------
+## Step 2: Running the script
+---
 
 Before you officially run the script, you are welcome to re-arrange and add/subtract any variables in the **$record** object on line 745 – this will control what columns you end up with in your final export. A lot of device object properties are pre-defined into variables starting on line 385, though some may have been skipped based on typical reporting needs (you can always run a GET to a variable in PowerShell and echo it out to see all captured properties, or refer to the [graph documentation](https://learn.microsoft.com/en-us/graph/api/intune-devices-manageddevice-list?view=graph-rest-1.0&viewFallbackFrom=graph-rest-beta&tabs=http)).
 

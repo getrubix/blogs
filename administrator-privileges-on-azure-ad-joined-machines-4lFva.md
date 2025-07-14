@@ -1,10 +1,10 @@
 ---
 author: GuestUser
 date: Thu, 16 Jul 2020 01:46:02 +0000
-description: '"There are several settings within Azure and Intune/MEM that will dictate
+description: 'There are several settings within Azure and Intune/MEM that will dictate
   when users have administrative privileges. One of the primary options is to configure
   a setting within Autopilot – when we create an Autopilot profile, we assign it to
-  devices that are registered in the tenant. One of"'
+  devices that are registered in the tenant.'
 slug: administrator-privileges-on-azure-ad-joined-machines-4lFva
 thumbnail: https://getrubixsitecms.blob.core.windows.net/public-assets/content/v1/thumbnails/administrator-privileges-on-azure-ad-joined-machines-4lFva_thumbnail.jpg
 title: Administrator Privileges on Azure AD Joined Machines
@@ -13,6 +13,9 @@ title: Administrator Privileges on Azure AD Joined Machines
 There are several settings within Azure and Intune/MEM that will dictate when users have administrative privileges. One of the primary options is to configure a setting within Autopilot – when we create an Autopilot profile, we assign it to devices that are registered in the tenant. One of the options in the profile is the “User account type” setting, which we can set to Administrator or Standard:
 
 ![](https://getrubixsitecms.blob.core.windows.net/public-assets/content/v1/5dd365a31aa1fd743bc30b8e/1594862610809-1XWEN8RMN920AN4O8EBU/image-asset.png)
+
+## The One Rule
+---
 
 A lot of organizations have a simple setup when it comes to Autopilot: All devices that are registered will aggregate into a dynamic group, and that dynamic group will be assigned the Autopilot profile pictured above. Here are the rules of the dynamic group which we’ll simply call “Autopilot Devices”:
 

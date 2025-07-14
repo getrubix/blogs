@@ -1,10 +1,9 @@
 ---
 author: steve@getrubix.com
 date: Sat, 25 Jan 2020 20:04:00 +0000
-description: '"Here we go! This one has been a long time coming, so thanks for waiting
+description: 'Here we go! This one has been a long time coming, so thanks for waiting
   around. Most folks know that until recently I have been extremely against hybrid-joining
-  a PC with Autopilot. It was meant for pure, Azure AD join only, and damnit, that’s
-  the way it should"'
+  a PC with Autopilot. It was meant for pure, Azure AD join only.'
 slug: autopilot-for-hybrid-join-a-somewhat-visual-guide
 thumbnail: https://getrubixsitecms.blob.core.windows.net/public-assets/content/v1/thumbnails/autopilot-for-hybrid-join-a-somewhat-visual-guide_thumbnail.jpg
 title: Autopilot for Hybrid join a somewhat visual guide
@@ -13,6 +12,9 @@ title: Autopilot for Hybrid join a somewhat visual guide
 Here we go! This one has been a long time coming, so thanks for waiting around. Most folks know that until recently I have been extremely against hybrid-joining a PC with Autopilot. It was meant for pure, Azure AD join only, and damnit, that’s the way it should stay. But as the technology itself matured, and industries of all sizes are heading towards the modern desktop, I (and my reluctant team) must adapt.
 
 As I put the final touches on this post, I’m looking at another 9 that are already in the works. This is a heavy topic and has a lot of components. First and foremost, what is Autopilot hybrid join and how does it work?
+
+## What is Autopilot for Hybrid Join?
+---
 
 _Spoiler alert: this is where the misconceptions get broken down._
 
@@ -29,14 +31,14 @@ Alrighty- ready to go? Have a look at the high level reference architecture for 
 
 ![It’s almost like a theme park](https://getrubixsitecms.blob.core.windows.net/public-assets/content/v1/5dd365a31aa1fd743bc30b8e/1581105584573-3W5DQP8195DRUYOC5W90/2020-01-25-15_31_05-refarch_creator.pptx-powerpoint.png)
 
-It’s almost like a theme park
+It almost looks like a theme park
 
 Still with me? Good, because it’s not as scary as it seems. I’m not going to go through all the hard requirements, because that bleeds into what you need for standard Autopilot, Windows 10 management, licensing, blah blah, etc. If you need those, Google is free or just click [here](https://docs.microsoft.com/en-us/intune/enrollment/windows-autopilot-hybrid).
 
 Let’s take a look at what happens to a device as it goes through the Autopilot Hybrid join process. I’ve broken this down into parts, each with it’s own steps.
 
-Part 1: Registration and searching
-----------------------------------
+## Part 1: Registration and searching
+---
 
 ![2020-01-25-15_53_24-refarch_creator.pptx-powerpoint.png](https://getrubixsitecms.blob.core.windows.net/public-assets/content/v1/5dd365a31aa1fd743bc30b8e/1581105618524-L8N665AGYMN4SPPCQ89I/2020-01-25-15_53_24-refarch_creator.pptx-powerpoint.png)
 
@@ -49,8 +51,8 @@ Part 1: Registration and searching
 4.  This whole time, the PC is just constantly polling for a domain controller, which it will not find as it does not have the proper configuration. It only knows it needs to find one because of the Hybrid join Autopilot profile
     
 
-Part 2: Requesting a blob
--------------------------
+## Part 2: Requesting a blob
+---
 
 ![2020-01-25-15_04_47-refarch_creator.pptx-powerpoint.png](https://getrubixsitecms.blob.core.windows.net/public-assets/content/v1/5dd365a31aa1fd743bc30b8e/1581105665057-5TX4HVW970KEINSAH59M/2020-01-25-15_04_47-refarch_creator.pptx-powerpoint.png)
 
@@ -61,10 +63,10 @@ Part 2: Requesting a blob
 3.  After verifying the request with the local domain controller, the Intune connector sends the ODJ blob back to Intune to be sent to the PC.
     
 
-\*_While it is called an ‘Offline Domain Join’ blob, the PC must have line-of-sight to the domain controller_
+>While it is called an `Offline Domain Join` blob, the PC must have line-of-sight to the domain controller
 
-Part 3: Meet and reboot
------------------------
+## Part 3: Meet and reboot
+---
 
 ![2020-01-25-15_08_41-refarch_creator.pptx-powerpoint.png](https://getrubixsitecms.blob.core.windows.net/public-assets/content/v1/5dd365a31aa1fd743bc30b8e/1581105688029-7UISAT2Y5B5DLOB8K1A3/2020-01-25-15_08_41-refarch_creator.pptx-powerpoint.png)
 
@@ -75,8 +77,8 @@ Part 3: Meet and reboot
 3.  PC reboots to begin domain join.
     
 
-Part 4: The joining
--------------------
+## Part 4: The joining
+---
 
 ![2020-01-25-15_20_41-refarch_creator.pptx-powerpoint.png](https://getrubixsitecms.blob.core.windows.net/public-assets/content/v1/5dd365a31aa1fd743bc30b8e/1581105715782-WTLBU0SM1EIQQ70AVAVO/2020-01-25-15_20_41-refarch_creator.pptx-powerpoint.png)
 
@@ -87,8 +89,8 @@ Part 4: The joining
 3.  Once domain joined, the PC can receive Group Policy objects and certificates, just as a traditionally joined machine would.
     
 
-Part 5: The circle is complete
-------------------------------
+## Part 5: The circle is complete
+---
 
 ![2020-01-25-15_30_19-refarch_creator.pptx-powerpoint.png](https://getrubixsitecms.blob.core.windows.net/public-assets/content/v1/5dd365a31aa1fd743bc30b8e/1581105759199-SKX862HCSCAHGI69SKQQ/2020-01-25-15_30_19-refarch_creator.pptx-powerpoint.png)
 
