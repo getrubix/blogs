@@ -3,7 +3,7 @@ author: steve@getrubix.com
 categories:
 - security
 date: Sat, 12 Mar 2022 22:00:47 +0000
-description: "In Part 1, we went over the basics of Autopilot Group Tags and how we can use them to target devices for application and policy provisioning upon registration. However, the focus was on the device build. Today we’re going to take that a step farther."
+description: 'In Part 1, we went over the basics of Autopilot Group Tags and how we can use them to target devices for application and policy provisioning upon registration. However, the focus was on the device build. Today we’re going to take that a step farther.'
 slug: autopilot-group-tags-part-2
 tags:
 - security
@@ -15,8 +15,8 @@ In [Part 1](https://www.getrubix.com/blog/autopilot-group-tags-1), we went over 
 
 I’m going to break this up into two scenarios: one business that is grouping devices by a site location (Magic Coffee Co) and another that is grouping based on regions (Global Operations Inc). Of course, these are fabricated names, unless they exist, in which case feel free to use my Group Tag strategies.
 
-Setting sights on sites
------------------------
+## Setting sights on sites
+---
 
 I have twin daughters turning 7 this month so I’m allowed to make terrible dad puns.
 
@@ -58,7 +58,7 @@ So knowing this, what does our Group Tag structure need to look like? Well, if y
 
 **WIN-AP-CORP**
 
-**_{PLATFORM}-{ENROLLMENT}-{BUILD}_**
+`{PLATFORM}-{ENROLLMENT}-{BUILD}`
 
 Let’s go ahead and add a place for the site location. I’ll use **WIN-AP-NY-CORP**. But why did I put the location in _that_ particular spot? Check out my new diagram that I made specifically for Magic Coffee:
 
@@ -72,8 +72,8 @@ But wait a minute- why wouldn’t I do the _build_ first followed by the locatio
 
 Remember, each site is run by it’s own IT department, each with their own standards. Here, the IT department can determine which standards apply to all builds, like Office 365 apps, Windows Update rings and security policy. Now within each build, network drives, printers, VPN connection and applications can be used, still all keeping with the NY site standards.
 
-What happens in NY…
--------------------
+## What happens in NY…
+---
 
 Let’s zoom out one more time:
 

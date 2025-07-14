@@ -1,10 +1,10 @@
 ---
 author: steve@getrubix.com
 date: Tue, 15 Mar 2022 12:37:23 +0000
-description: '"Autopilot Group Tags can play a major role in application deployment.
+description: 'Autopilot Group Tags can play a major role in application deployment.
   Devices are registered during procurement with a tag applied, the tag ensures the
   device ends up in the appropriate group, and that group is used to assign applications
-  to be deployed during initial provisioning. But"'
+  to be deployed during initial provisioning.'
 slug: autopilot-group-tags-part-4
 thumbnail: https://getrubixsitecms.blob.core.windows.net/public-assets/content/v1/thumbnails/autopilot-group-tags-part-4_thumbnail.jpg
 title: Autopilot Group Tags Part 4
@@ -16,8 +16,8 @@ Autopilot Group Tags can play a major role in application deployment. Devices ar
 
 A typical Autopilot onboarding flow
 
-A balancing act
----------------
+## A balancing act
+---
 
 I’ve always seen Autopilot provision as a balancing act. We want to make sure all required applications and profiles are provisioned during that first enrollment so the user has everything they need to get to work. On the other hand, the whole point of Autopilot is to provide a efficient user experience. Therefore, we cannot accept a user waiting for hours while the PC sets itself up.
 
@@ -30,8 +30,8 @@ If you’re not already familiar with the Enrollment Status Page (ESP), I recomm
 
 Understanding and mastering the way ESP works is crucial for a successful Autopilot deployment. Let’s think of the provisioning process in two pieces: device setup (during ESP) and user setup (post ESP). Device setup should closely resemble anything that would be part of a traditional image. This includes core applications, policy and settings, and OS customizations. This works especially well with Autopilot pre-provisioning (formerly known as “White Glove”) when you want to front-load all of the device targeted applications.
 
-Each step
----------
+## Each step
+---
 
 Let’s go ahead and break down the provisioning process during an Autopilot deployment. I’m going to address each part as a step in a phase:
 
@@ -39,8 +39,8 @@ Let’s go ahead and break down the provisioning process during an Autopilot dep
 
 We have two phases and three steps. The **device level** phase consists of two parts: the initial sign-in and the device provisioning. The **user level** phase has just one step, which is the actual user log on.
 
-Device phase
-------------
+## Device phase
+---
 
 ### A. OOBE
 
@@ -63,7 +63,6 @@ So what is actually happening here? The credentials that the user entered are au
 
 Once these components are validate, the device proceeds to the next step where it begins Intune enrollment. Keep in mind, there is no user object present on the device at this point.
 
-* * *
 
 ### B. Device provisioning
 
@@ -77,8 +76,8 @@ Once device setup is complete, we move onto the next phase. There is still no us
 
 * * *
 
-User phase
-----------
+## User phase
+---
 
 ### C. User setup
 
@@ -88,9 +87,8 @@ After device provisioning, the user is prompted with an official, Windows logon 
 
 It is at this point that any user assigned applications can be deployed. If you’ve set your assignments to _required_, then they will simply download and install in the background while the user is working. However, if you’ve assigned them as _available_, then the user can simply launch the Company Portal and choose which apps to install.
 
-* * *
 
-The complete build
-------------------
+## The complete build
+---
 
 While not directly related, understanding how user assignments work alongside Group Tags are a key piece to a dynamic device build. It allows you to ensure your baseline components are installed up front while still allowing a unique experience for your end users, based on their job requirements.

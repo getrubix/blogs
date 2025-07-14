@@ -1,10 +1,10 @@
 ---
 author: steve@getrubix.com
 date: Wed, 16 Mar 2022 14:58:21 +0000
-description: '"Alright- we may be at the end here. In Part 2 I mentioned we were going
+description: 'Alright- we may be at the end here. In Part 2 I mentioned we were going
   to be looking at a Group Tag structure for two example companies: Magic Coffee Co
   and Global Operations Inc. I’m fairly certain they’re both imaginary.We spent time
-  with Magic Coffee"'
+  with Magic Coffee'
 slug: autopilot-group-tags-part-5
 thumbnail: https://getrubixsitecms.blob.core.windows.net/public-assets/content/v1/thumbnails/autopilot-group-tags-part-5_thumbnail.jpg
 title: Autopilot Group Tags Part 5
@@ -18,8 +18,8 @@ We spent time with Magic Coffee building a Group Tag structure to fit their need
 
 This structure reflects the need to identify each device build per site, leaving room for specific app assignments in addition to future builds. But take a closer look; the primary differentiator here is the location, which makes sense because Magic Coffee allows the IT admins per site to control the build requirements. But this is very different for our other business; enter Global Operations Inc.
 
-Going global
-------------
+## Going global
+---
 
 It may shock you, but Global Operations Inc. (or “Global Opps” for short), is a 75,000 user organization that operates globally. They have locations in 7 major regions and various builds and use cases within them. However, unlike Magic Coffee, Global Opps wants to implement a build standard for their devices across all regions. Here is the breakdown:
 
@@ -61,10 +61,10 @@ Here is the structure to support the regions:
 
 ![](https://getrubixsitecms.blob.core.windows.net/public-assets/content/v1/5dd365a31aa1fd743bc30b8e/9ca73a09-38dc-43ce-9780-33dd6a67e7e8/Screen+Shot+2022-03-15+at+3.44.45+PM.png)
 
-Each build as subsequent tags for the region. Central IT will determine what is configured at the **WIN-AP-CORP** level. However, the IT admins in Canada have the ability to manage **WIN-AP-CORP-CA** the way they see fit for their needs. They can do this without interfering with the corporate standard.
+Each build as subsequent tags for the region. Central IT will determine what is configured at the `WIN-AP-CORP` level. However, the IT admins in Canada have the ability to manage `WIN-AP-CORP-CA` the way they see fit for their needs. They can do this without interfering with the corporate standard.
 
-Wrapping up the tags
---------------------
+## Wrapping up the tags
+---
 
 To close out the 5-part series, I want to stress how important it is to leverage Group Tags in your environment. It’s without a doubt, the most effective way to organize Autopilot devices. Having a structure will also help you provide a consistent provisioning experience because you’ll know exactly which components are deployed at each step in the process.
 
