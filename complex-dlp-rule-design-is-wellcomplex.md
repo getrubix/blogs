@@ -1,16 +1,19 @@
 ---
 author: steve@getrubix.com
 date: Wed, 12 Feb 2025 11:28:14 +0000
-description: '"One of the most common issues I''m tasked with resolving for my Purview
+description: 'One of the most common issues I''m tasked with resolving for my Purview
   customers is the structure of the DLP Rules within their DLP Policies. You build
   a rule based on common sense understanding and find that common sense isn''t always
-  the right approach. It''s easy to see"'
+  the right approach.'
 slug: complex-dlp-rule-design-is-wellcomplex
 thumbnail: https://getrubixsitecms.blob.core.windows.net/public-assets/content/v1/thumbnails/complex-dlp-rule-design-is-wellcomplex_thumbnail.jpg
 title: Complex DLP Rule Design Is WellComplex
 ---
 
 One of the most common issues I'm tasked with resolving for my Purview customers is the structure of the DLP Rules within their DLP Policies. You build a rule based on common sense understanding and find that common sense isn't always the right approach.
+
+## The easy way
+---
 
 It's easy to see the Boolean operator options in front of you and take them at face value. Looking at this rule logic, you would be forgiven for assuming that it would match on an email containing a Social Security number **and** an ITIN:
 
@@ -20,11 +23,14 @@ Unfortunately, that's not how Purview is expecting that condition to be built:
 
 ![](https://getrubixsitecms.blob.core.windows.net/public-assets/content/v1/5dd365a31aa1fd743bc30b8e/9284562b-6ce1-4990-b317-37c61ffe99ea/blog2.jpg)
 
+## The right way
+---
+
 What you _should_ do, is this:
 
 ![](https://getrubixsitecms.blob.core.windows.net/public-assets/content/v1/5dd365a31aa1fd743bc30b8e/bd4ea657-6fe3-4904-a1c1-f88467713657/blog3.jpg)
 
-use the "create group" option within the current "contain contains" condition
+Use the "create group" option within the current "contain contains" condition
 
 Now we can add the Sensitive Information Type (SIT) that we want to link:
 
@@ -32,7 +38,8 @@ Now we can add the Sensitive Information Type (SIT) that we want to link:
 
 You would think that these are functionally the same, but Purview doesn't evaluate the first one as a Boolean "and". If you've built your rule that way, and you're not seeing the expected hits in the Activity Explorer, modify it to use a nested group.
 
-### ❓Ok, but what about...
+## ❓Ok, but what about...
+---
 
 One thing to note is that there are still scenarios where you should use a non-nested group. Here, you can see that nesting a "Content Contains" condition only leaves a few options for the second condition:
 
@@ -50,7 +57,8 @@ looks a lot like Exchange Online mail flow rules, huh? :)
 
 building Boolean "and" conditions without nesting
 
-### ➕Bonus Options
+## ➕Bonus Options
+---
 
 One or the other:
 

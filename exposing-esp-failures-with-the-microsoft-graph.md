@@ -5,7 +5,7 @@ categories:
 - powershell
 - azure
 date: Mon, 03 Feb 2020 20:09:00 +0000
-description: "If you’ve been testing or deploying Windows 10 devices via Autopilot, it’s safe to assume you’ve encountered application failures during the device or user provisioning step of the ESP (enrollment status page). Now there’s nothing wrong with failures, but there is a problem when you can’t see which app is the troublemaker."
+description: 'If you’ve been testing or deploying Windows 10 devices via Autopilot, it’s safe to assume you’ve encountered application failures during the device or user provisioning step of the ESP (enrollment status page). Now there’s nothing wrong with failures, but there is a problem when you can’t see which app is the troublemaker.'
 slug: exposing-esp-failures-with-the-microsoft-graph
 tags:
 - script
@@ -19,10 +19,10 @@ If you’ve been testing or deploying Windows 10 devices via Autopilot, it’s s
 
 ![2020-02-03-08_27_31-windows-enrollment-status-page_failure_thumb.jpg-672c397501.png](https://getrubixsitecms.blob.core.windows.net/public-assets/content/v1/5dd365a31aa1fd743bc30b8e/1581105967161-IUZ7KAIWU5UIKRG75SYF/2020-02-03-08_27_31-windows-enrollment-status-page_failure_thumb.jpg-672c397501.png)
 
-_\*Yes, of course if an app fails you will see that from the Microsoft Endpoint Manager_ _console, but often an app will end up installing just fine after a reattempt, while still leaving your ESP in chaos._
+>Yes, of course if an app fails you will see that from the Microsoft Endpoint Manager console, but often an app will end up installing just fine after a reattempt, while still leaving your ESP in chaos.
 
-Finding the GUID
-----------------
+## Finding the GUID
+---
 
 The first step when you see that wonderful failure screen is to get yourself to the event viewer. Navigate to **Applications and Services -> Microsoft -> Windows -> DeviceManagement-Enterprise-Diagnostics-Provider->Admin**. Filter by errors and warnings. Typically, application related failures are in the 1900-2000 Event ID range. Ah- seems like we found something:
 
@@ -32,8 +32,8 @@ Which app is that?
 
 So there you have it! The app causing the issue is **CD035048-7A4D-4FF5-B52F-707A3221DAFD**. Must be a PDF editor- either way, that clears things up. Thanks for reading… what? Oh of course! That’s not the name of an application. That is just the Azure object ID of the app in GUID form. So now what?
 
-Get to the Graph!
------------------
+## Get to the Graph!
+---
 
 Everything in Azure has a friendly name and an object ID. It just so happens that the MEM console does not feel like displaying the friendly name when it comes to applications. So if we had a way to connect that GUID with the application name, we would know which app is giving us the problem. This is exactly where the Microsoft Graph comes in.
 
@@ -51,8 +51,8 @@ Click on the **Run Query** button. You may be asked to consent to the required
 
 ![2020-02-03-08_25_20-graph-explorer-microsoft-graph.png](https://getrubixsitecms.blob.core.windows.net/public-assets/content/v1/5dd365a31aa1fd743bc30b8e/1581106080228-ET8R7O3H8VFJVJXPL6W2/2020-02-03-08_25_20-graph-explorer-microsoft-graph.png)
 
-What’s with all this JSON?
---------------------------
+## What’s with all this JSON?
+---
 
 Now that you’re staring at a giant notepad document filled with random garbage, you may be confused. This is the raw manifest of all the applications configured in Microsoft Endpoint Manager. They are displayed in the JSON format, which stands for _JavaScript Object Notation_. Essentially, this is just a list of objects and their properties. For this particular output, we should be able to see every property of an app- including it’s object ID GUID.
 

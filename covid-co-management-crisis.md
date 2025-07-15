@@ -1,10 +1,10 @@
 ---
 author: steve@getrubix.com
 date: Tue, 14 Apr 2020 14:05:43 +0000
-description: '"For three years now, I have led a team of engineers in the practice
+description: 'For three years now, I have led a team of engineers in the practice
   of deploying modern management for Windows 10. Last month, when the pandemic induced
   lock-down started, the world of Windows users lost their line-of-site to their corporate
-  domains. The modern management my"'
+  domains.'
 slug: covid-co-management-crisis
 thumbnail: https://getrubixsitecms.blob.core.windows.net/public-assets/content/v1/thumbnails/covid-co-management-crisis_thumbnail.jpg
 title: Covid Co-Management Crisis
@@ -16,14 +16,14 @@ Most businesses cannot shift to Autopilot overnight (my record in setting up a p
 
 The good news here is that if you implement SCCM, you can quickly enable co-management to get control of your spontaneously, remote workforce. While I've not been a fan of it in the past, it's hard to deny that this is the best path forward for most right now. There are two flavors of co-management depending on the scenario: current fleet or new devices. And within current fleet, there are two variants. Today we'll look at the first one; co-management for domain join devices with SCCM and Intune.
 
-Current fleet and Intune
-------------------------
+## Current fleet and Intune
+---
 
-_\*I understand that most of your users, if not all, are currently not connected to the domain. To set up co-management for them, they will need to VPN in at least until we've deployed the appropriate changes to their SCCM client._
+>I understand that most of your users, if not all, are currently not connected to the domain. To set up co-management for them, they will need to VPN in at least until we've deployed the appropriate changes to their SCCM client.
 
 Without a doubt, this is the easier scenario. Essentially, we’ll be enrolling SCCM managed devices to Intune and pushing as much or as little of the workload as we want there. Here are the most relevant workloads to help immediately:
 
-![2020-04-14 09_39_33-CONFIGMAN (configman3000.zerotouch.local) - Remote Desktop Connection Manager v2.png](https://getrubixsitecms.blob.core.windows.net/public-assets/content/v1/5dd365a31aa1fd743bc30b8e/1586871582389-OA1MVYRZN4SMMH4IPTAH/2020-04-14+09_39_33-CONFIGMAN+%28configman3000.zerotouch.local%29+-+Remote+Desktop+Connection+Manager+v2.png)
+![2020-04-14 09_39_33-CONFIGMAN (configman3000.zerotouch.local) - Remote Desktop Connection Manager v2.png](https://getrubixsitecms.blob.core.windows.net/public-assets/content/v1/5dd365a31aa1fd743bc30b8e/593971df-a139-409c-a6f7-2c27fedcf154/configman.png)
 
 -   **Office 365 deployment**: deploy and manage the Office suite including individual apps, update channels, and configuration policy (admin templates)
     
@@ -33,6 +33,8 @@ Without a doubt, this is the easier scenario. Essentially, we’ll be enrolling 
     
 -   **Client Apps**: allow Intune to deploy apps to devices as either required or available through the company portal.
     
+## Architecture
+--- 
 
 Here is a high-level overview of the architecture:
 
@@ -44,25 +46,28 @@ Enabling co-management in SCCM is fairly straight forward and is best detailed i
 
 Here is a breakdown of the steps:
 
--   Hybrid Azure AD join must be enabled. This allows domain joined devices to be visible in Azure and eligible for Intune enrollment
+1. Hybrid Azure AD join must be enabled. This allows domain joined devices to be visible in Azure and eligible for Intune enrollment
     
 
 ![2020-04-14 09_07_03-z0tdc02.zerotouch.local - Remote Desktop Connection.png](https://getrubixsitecms.blob.core.windows.net/public-assets/content/v1/5dd365a31aa1fd743bc30b8e/1586871814535-MI7M0IT0KBL6UA8W9J4G/2020-04-14+09_07_03-z0tdc02.zerotouch.local+-+Remote+Desktop+Connection.png)
 
--   Assign the EMS (Enterprise Mobility + Security) licensing to all applicable users and enable Automatic Enrollment in Intune for Windows devices.
+2. Assign the EMS (Enterprise Mobility + Security) licensing to all applicable users and enable Automatic Enrollment in Intune for Windows devices.
     
 
 ![2020-04-14 09_44_51-Chuck Berry _ Licenses - Microsoft Azure.png](https://getrubixsitecms.blob.core.windows.net/public-assets/content/v1/5dd365a31aa1fd743bc30b8e/1586871900872-MRRNQWEKHZE7PHZTMCB7/2020-04-14+09_44_51-Chuck+Berry+_+Licenses+-+Microsoft+Azure.png)
 
--   In the SCCM console, navigate to **Administration > Cloud Services > Co-management** and click “**Configure co-management**”.
+3. In the SCCM console, navigate to **Administration > Cloud Services > Co-management** and click “**Configure co-management**”.
     
 
-![2020-04-14 09_36_10-CONFIGMAN (configman3000.zerotouch.local) - Remote Desktop Connection Manager v2.png](https://getrubixsitecms.blob.core.windows.net/public-assets/content/v1/5dd365a31aa1fd743bc30b8e/1586872000467-VAOWKB29ZTI1SC3UV8AM/2020-04-14+09_36_10-CONFIGMAN+%28configman3000.zerotouch.local%29+-+Remote+Desktop+Connection+Manager+v2.png)
+![2020-04-14 09_36_10-CONFIGMAN (configman3000.zerotouch.local) - Remote Desktop Connection Manager v2.png](https://getrubixsitecms.blob.core.windows.net/public-assets/content/v1/5dd365a31aa1fd743bc30b8e/593971df-a139-409c-a6f7-2c27fedcf154/comag_console.png)
 
--   Sign in to Azure and select your pilot group for enrollment.
+4. Sign in to Azure and select your pilot group for enrollment.
     
 
 ![2020-04-13 22_30_37-configman3000.zerotouch.local - Remote Desktop Connection.png](https://getrubixsitecms.blob.core.windows.net/public-assets/content/v1/5dd365a31aa1fd743bc30b8e/1586872033328-4PL9M7WKA0SQRAFCZJCR/2020-04-13+22_30_37-configman3000.zerotouch.local+-+Remote+Desktop+Connection.png)
+
+## Workloads
+---
 
 From there, you can enable the correlating features in Intune that match up to the workloads you'll be shifting. The cool part is that even without shifting workloads, you gain access to the following features:
 

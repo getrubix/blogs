@@ -1,16 +1,19 @@
 ---
 author: steve@getrubix.com
 date: Mon, 13 Apr 2020 03:31:06 +0000
-description: '"Regardless of how you feel about co-management (98% of the time I despise
+description: 'Regardless of how you feel about co-management (98% of the time I despise
   it), we have to deal with it. One of the more common situations I run into is when
   an organization is using both co-management in addition to pure, Intune managed
-  PCs. There is"'
+  PCs. There is'
 slug: dynamic-groups-for-co-managed-devices
 thumbnail: https://getrubixsitecms.blob.core.windows.net/public-assets/content/v1/thumbnails/dynamic-groups-for-co-managed-devices_thumbnail.jpg
 title: Dynamic groups for co-managed devices
 ---
 
 Regardless of how you feel about co-management (98% of the time I despise it), we have to deal with it. One of the more common situations I run into is when an organization is using both co-management in addition to pure, Intune managed PCs. There is no clear way to catch all co-managed devices in their own dynamic group. This is a major issue if you're looking to apply separate profiles to newly deployed PCs vs your current fleet.
+
+## A simple solution
+--- 
 
 I've put together a (somewhat) simple solution for dealing with this in the form of a PowerShell script. Using the Microsoft Graph, we can search Azure for all devices enrolled via co-management, create a brand new group, and then use the search results for the new group's members.
 
@@ -25,6 +28,7 @@ Here are a few things to note before we get started:
 
 Without further ranting, I give you the script:
 
+```pwsh
 \## INSTALL AND IMPORT REQUIRED MODULES
 $modules = @(
     "Microsoft.Graph.Intune"
@@ -110,18 +114,19 @@ foreach($pc in $comag){
     Invoke-MSGraphRequest -Url "https://graph.microsoft.com/beta/groups/$groupID/members/\`$ref" -HttpMethod POST -Content $groupJSON
     Write-Host "$pc added to $groupID group"
 }
+```
 
 Before you run off and make your own co-managed Azure group, there are a few pieces I want to touch on:
 
-If it ain’t broke
------------------
+## If it ain’t broke
+---
 
-As you can see, this isn’t all just straight graph calls. For gathering the devices, we’re using the **Microsoft.Graph.Intune** module to make the **Get-IntuneManagedDevice** call with some filtering. While we can construct our own calls to do the same thing, there’s absolutely no need since they already exist in the module. So here is where we get those devices and store the returned objects in a variable.
+As you can see, this isn’t all just straight graph calls. For gathering the devices, we’re using the `Microsoft.Graph.Intune` module to make theb `Get-IntuneManagedDevice` call with some filtering. While we can construct our own calls to do the same thing, there’s absolutely no need since they already exist in the module. So here is where we get those devices and store the returned objects in a variable.
 
 ![2020-04-12 22_53_01-● comagGroupMaker.ps1 - Visual Studio Code.png](https://getrubixsitecms.blob.core.windows.net/public-assets/content/v1/5dd365a31aa1fd743bc30b8e/1586746435877-5S9XKWETF2UKZ3SYP8WQ/2020-04-12+22_53_01-%E2%97%8F+comagGroupMaker.ps1+-+Visual+Studio+Code.png)
 
-Name your own group
--------------------
+## Name your own group
+---
 
 I didn’t think anyone would get a kick out of me coming up with funny names for your co-management groups, so I was considerate enough to allow you to choose your own name using **read-host**. We then take those values and insert them into the JSON block that will be used to make up the group.
 
@@ -129,8 +134,8 @@ The call to make the group is pretty simple. It is a **POST** call using the JSO
 
 ![2020-04-12 22_56_36-● comagGroupMaker.ps1 - Visual Studio Code.png](https://getrubixsitecms.blob.core.windows.net/public-assets/content/v1/5dd365a31aa1fd743bc30b8e/1586746693046-23CRVNOEGXZ3DKQC38AI/2020-04-12+22_56_36-%E2%97%8F+comagGroupMaker.ps1+-+Visual+Studio+Code.png)
 
-Object related trickery
------------------------
+## Object related trickery
+---
 
 This next part is where things got tripped up. When you add members to a group in Azure, it works like this:
 
@@ -138,11 +143,11 @@ Add **<PC%OBJECT%ID%GUID>** to **<%GROUP%OBJECT%ID%GUID>.**
 
 Azure is not interested in the friendly names. Well that’s just fine because earlier when we get our co-managed devices, we can simply get their object ID along with it, right? Wrong!
 
-Even though Intune and Azure work off the same database, they don’t look at the same attributes of the device. When we get our co-managed devices, we’re getting them from Intune, or the **deviceManagement** node of the graph. It’s the only way we can look at the **deviceEnrollmentType** attribute.
+Even though Intune and Azure work off the same database, they don’t look at the same attributes of the device. When we get our co-managed devices, we’re getting them from Intune, or the `deviceManagement` node of the graph. It’s the only way we can look at the `deviceEnrollmentType` attribute.
 
-Devices from this node have two IDs: the **Intune Device ID** and the **Azure AD Device ID**. So which ID do we use to add group members? If you guessed ‘neither of these two’ then you are sadly correct. Turns out, the only way to add members to groups is with the **Object ID**. And that only comes from Azure AD. But there is some good news.
+Devices from this node have two IDs: the `Intune Device ID` and the `Azure AD Device ID`. So which ID do we use to add group members? If you guessed ‘neither of these two’ then you are sadly correct. Turns out, the only way to add members to groups is with the `Object ID`. And that only comes from Azure AD. But there is some good news.
 
-Azure AD also provides two IDs: the **Device ID** and the **Object ID**. And the **Device ID** from Azure matches the **Azure AD Device ID** from Intune.
+Azure AD also provides two IDs: the `Device ID` and the `Object ID`. And the `Device ID` from Azure matches the `Azure AD Device ID` from Intune.
 
 ![Starting with the Azure AD Device ID from Intune…](https://getrubixsitecms.blob.core.windows.net/public-assets/content/v1/5dd365a31aa1fd743bc30b8e/1586747572698-ZT19AZZKGQFH31V0NO5Y/2020-04-12+23_02_36-CLIENT7+_+Hardware+-+Microsoft+Endpoint+Manager+admin+center.png)
 
@@ -152,8 +157,8 @@ Starting with the Azure AD Device ID from Intune…
 
 …we can follow it straight to the Object ID we need in Azure AD
 
-Connect the dots (or device IDs)
---------------------------------
+## Connect the dots (or device IDs)
+---
 
 So there’s the correlation; we just need a way to match them up. The first step is to make sure when we get the comanaged devices, we’re capturing their **Azure AD Device IDs**. Actually, it’s the only attribute about them we really need. Here’s how we did that, going back a few steps:
 
