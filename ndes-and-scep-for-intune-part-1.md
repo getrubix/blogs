@@ -6,8 +6,7 @@ categories:
   - automation
   - azure
 date: Mon, 10 May 2021 20:52:48 +0000
-description: >
-  Long time, no talk. But it’s because I’ve been busy. And usually when I’m this busy it means I’ve got a lot to talk about. During three separate Endpoint Manager implementations, I’ve recently had to go outside my comfort zone and help folks troubleshoot Intune SCEP certificate profiles.
+description: 'Long time, no talk. But it’s because I’ve been busy. And usually when I’m this busy it means I’ve got a lot to talk about. During three separate Endpoint Manager implementations, I’ve recently had to go outside my comfort zone and help folks troubleshoot Intune SCEP certificate profiles.'
 slug: ndes-and-scep-for-intune-part-1
 tags:
   - endpoint manager
@@ -27,6 +26,7 @@ During three separate Endpoint Manager implementations, I’ve recently had to g
 So, sit back and relax while I take you through the entire setup process of an Intune certificate connector on a fresh, new NDES server.
 
 ## Mini Series
+---
 
 There’s a lot of things that need to happen in order to get this working properly. Anyone who tells you it’s ‘painless’ or ‘no big deal’ is a heartless liar. It’s confusing, frustrating and worst of all, there’s little documentation of the entire process in its entirety.
 
@@ -35,6 +35,7 @@ I found very good pieces written by various tech resources detailing specific pa
 So, what I’ll do here is break this into several parts of a whole series, each piece detailing their own part of the process. This way it can stay manageable, but all reside in the same place.
 
 ## Workflow
+---
 
 The high-level breakdown is as follows:
 
@@ -45,6 +46,7 @@ The high-level breakdown is as follows:
 - Intune SCEP profile makes request through Intune Certificate connector for cert. NDES asks for cert template from issuing CA and deploys through Intune.
 
 ## Why Do I Need This?
+---
 
 The Intune certificate connector lets you deploy certificates to devices that you would traditionally deploy to a domain joined PC via group policy.
 
@@ -54,14 +56,13 @@ Alright, here we go. For clarity, each section will have a location code so you 
 
 **Codes:**
 
-- CA = Certificate Authority  
-- NDES = Network Device Enrollment Service (server we’re building)  
-- Intune = Microsoft Endpoint Manager (https://endpoint.microsoft.com)  
-- AD = anywhere in your Active Directory  
+- `CA` = Certificate Authority  
+- `NDES` = Network Device Enrollment Service (server we’re building)  
+- `Intune` = Microsoft Endpoint Manager (https://endpoint.microsoft.com)  
+- `AD` = anywhere in your Active Directory  
 
-## Part 1 – The Service Account, Certificate Templates, and NDES Role
-
-### Make an NDES Account and Server (AD)
+## Make an NDES Account and Server (AD)
+---
 
 In your on-premises Active Directory, create a new user that we will use as a service account for our NDES activities.
 
@@ -69,7 +70,8 @@ In your on-premises Active Directory, create a new user that we will use as a se
 
 For the server, just spin up a fresh Windows Server 2016 or later physical or virtual machine and join it to your domain. **Do not promote it to a domain controller.**
 
-### Certificate Templates (CA)
+## Certificate Templates (CA)
+---
 
 We will make two certificate templates. First will be the Web Server template used for NDES and Intune connector authentication to the CA.
 
@@ -120,7 +122,8 @@ Back in the Certification Authority console, right-click **Certificate Templates
 
 Select both templates you just created and click **OK**.
 
-### NDES Role (NDES)
+## NDES Role (NDES)
+---
 
 Log into the NDES server. Launch **Server Manager** and click:
 

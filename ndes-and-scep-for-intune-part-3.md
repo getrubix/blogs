@@ -1,10 +1,9 @@
 ---
 author: steve@getrubix.com
 date: Tue, 11 May 2021 20:28:22 +0000
-description: "\"Let’s start with some follow up before moving on.&nbsp; We need to
+description: 'Let’s start with some follow up before moving on.&nbsp; We need to
   set the SPN (Service Principal Name) for the NDES account.Log into your NDES server
-  and open an elevated CMD prompt.&nbsp; Type the following:setspn -s http/&lt;NDES-FQDN&gt;
-  domainName\NDESaccountNameMine looks like this:\""
+  and open an elevated CMD prompt.'
 slug: ndes-and-scep-for-intune-part-3
 thumbnail: https://getrubixsitecms.blob.core.windows.net/public-assets/content/v1/thumbnails/ndes-and-scep-for-intune-part-3_thumbnail.jpg
 title: NDES and SCEP for Intune Part 3
@@ -18,7 +17,7 @@ categories:
   - Security
 ---
 
-**Let’s start with some follow up before moving on.**  We need to set the SPN (Service Principal Name) for the NDES account.
+**Let’s start with some follow up before moving on.**  We need to set the `SPN` (Service Principal Name) for the NDES account.
 
 Log into your NDES server and open an elevated CMD prompt.  Type the following:
 
@@ -26,7 +25,8 @@ Log into your NDES server and open an elevated CMD prompt.  Type the following:
 setspn -s http/<NDES-FQDN> domainName\NDESaccountName
 ```
 
-### Close the CMD prompt
+## Close the CMD prompt
+---
 
 Mine looks like this:
 
@@ -34,7 +34,8 @@ Mine looks like this:
 
 Close the CMD prompt when it completes.  Moving on…
 
-### The Binding (NDES)
+## The Binding (NDES)
+---
 
 Now that we have the NDES client/server authentication cert issued to our NDES, we need to bind it to the IIS default site.  Log into the NDES server and launch the IIS Manager.  Navigate to the “Default Web Site” and on the far right, click **Edit Site -> Bindings**.
 
@@ -44,21 +45,22 @@ Click **Add** on the “Site Bindings” menu.
 
 Make the following changes:
 
-**Type**: https
+- `Type:` https
 
-**Port**: 443
+- `Port:` 443
 
-**IP address**: All Unassigned
+- `IP address:` All Unassigned
 
-**Host name**: leave blank
+- `Host name:` leave blank
 
-**SSL certificate**: choose the certificate we just issued to the NDES at the end of [**Part 2**](https://www.getrubix.com/blog/ndes-and-scep-for-intune-part-2)
+- `SSL certificate:` choose the certificate we just issued to the NDES at the end of [**Part 2**](https://www.getrubix.com/blog/ndes-and-scep-for-intune-part-2)
 
 Click **OK**, and close the IIS manager.
 
 ![Whatever it is, the way you tell your story online can make all the difference.](https://getrubixsitecms.blob.core.windows.net/public-assets/content/v1/5dd365a31aa1fd743bc30b8e/1620763756065-PDZULHOT1G1IYBH094D0/3.png)
 
-### Templates in the registry (NDES)
+## Templates in the registry (NDES)
+---
 
 We must configure the registry so that NDES knows which cert template to use when a request comes in from the connector.  This can be defined specially by the purpose of the cert, but to be safe, we’re going to configure all three available options.
 
@@ -70,30 +72,23 @@ Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Cryptography\MSCEP
 
 There are three values:
 
-```
-EncryptionTemplate
-```
-    
-```
-GeneralPurposeTemplate
-```
-    
-```
-SignatureTemplate
-```
-    
+- `EncryptionTemplate`
+- `GeneralPurposeTemplate`
+- `SignatureTemplate`
 
 Edit each one to be the name of your NDES client cert template.
 
 ![Whatever it is, the way you tell your story online can make all the difference.](https://getrubixsitecms.blob.core.windows.net/public-assets/content/v1/5dd365a31aa1fd743bc30b8e/1620763793804-FCT05O7CQ0Y23ZLI49ZB/Picture4.png)
 
-### Download the SCEP connector (Intune)
+## Download the SCEP connector (Intune)
+---
 
 Log into [https://endpoint.microsoft.com](https://endpoint.microsoft.com) and navigate to **Tenant administration -> Connectors and tokens -> Certificate connectors**.  Click **+Add** and proceed to download the SCEP connector software.
 
 ![Whatever it is, the way you tell your story online can make all the difference.](https://getrubixsitecms.blob.core.windows.net/public-assets/content/v1/5dd365a31aa1fd743bc30b8e/1620764323661-3AAMTMHMWWZ1I7JWQNQ6/Picture5.png)
 
-### Install the connector (NDES)
+## Install the connector (NDES)
+---
 
 Copy the NDESConnectorSetup.exe over to your NDES server and launch the installer.  Click **Next** when the setup starts.
 

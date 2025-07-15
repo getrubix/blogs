@@ -1,10 +1,10 @@
 ---
 author: GuestUser
 date: Fri, 06 Sep 2024 19:29:25 +0000
-description: '"Don’t worry, this isn’t another discovered issue or service advisory.
+description: 'Don’t worry, this isn’t another discovered issue or service advisory.
   I wanted to put together some general info and recommendations around Intune’s role-based
   access controls (RBAC). I often get asked about the capabilities and how to support
-  different scenarios, so I figured it would be good to list"'
+  different scenarios, so I figured it would be good to list'
 slug: backtracking-on-rbac-73bYS
 thumbnail: https://getrubixsitecms.blob.core.windows.net/public-assets/content/v1/thumbnails/backtracking-on-rbac-73bYS_thumbnail.jpg
 title: Backtracking on RBAC
@@ -12,8 +12,8 @@ title: Backtracking on RBAC
 
 Don’t worry, this isn’t another discovered issue or service advisory. I wanted to put together some general info and recommendations around Intune’s role-based access controls (RBAC). I often get asked about the capabilities and how to support different scenarios, so I figured it would be good to list some critical points here.
 
-The Roles
----------
+## The Roles
+---
 
 Out of the box, Intune has some great built-in roles that you can directly assign to users. However, I always advise duplicating one of the examples and customizing them based on each desired role. There’s lots of great articles out there on how to go through the individual settings with screenshots from the console… I’m going to assume you already know where to find these settings.
 
@@ -47,8 +47,8 @@ Now, here’s some gotchas with the roles themselves:
 3.  If you make changes to the permissions, be prepared to wait a few hours for the changes to take effect on current users.
     
 
-The Scope Tags
---------------
+## The Scope Tags
+---
 
 With the high-level roles called out, we now need to limit where scoped admins can make changes in the tenant. This is why nearly all configurations in Intune can have a **Scope Tag** applied – when you create an assignment for a role, you can specify which devices and configurations are visible to the admin based on the selected scope tag (you can do more than one).
 
@@ -74,8 +74,8 @@ Now, here’s some gotchas with Scope Tags:
 -   Because of the point above, and because of other administrative roles where you have to separate things by scope tag, you will need to carefully think about how you will handle shared configurations. Because of the reporting piece, I personally would recommend applying all applicable scope tags to the shared configurations – any administrators that have the rights to modify these profiles will need to be **educated** on the potential impact they may cause. Scope Groups can potentially help limit this impact, but there’s some gotchas there as well.
     
 
-The Scope Groups
-----------------
+## The Scope Groups
+---
 
 When assigning a group to a custom role… before you select the scope tag, you have the option to customize the **Scope Groups**. For any roles that allow configuration assignments and remote actions, you can limit these tasks to users or devices that are part of the selected scope groups.
 
@@ -90,8 +90,8 @@ Sounds like it should limit assignment capabilities, but let’s jump straight i
 -   Because of the scenario above, you may decide to choose the **all users** and **all devices** options for Scope Groups. If you do this, you must once again educate your admins to make sure they do not negatively impact any users or devices with configuration changes. If I am giving Dustin the “all users” and “all devices” option for Scope Groups, he can literally assign things to ALL users and ALL devices tenant-wide - **this means that the Scope Tag will NOT limit the impact of the “all” assignments.**
     
 
-Entra ID Rights
----------------
+## Entra ID Rights
+---
 
 A lot of folks that test Intune RBAC for the first time are users who previously had full Intune Administrator rights. One of the first things they realize is they can no longer manage Entra ID device records – they also can’t retrieve the BitLocker recovery keys or LAPS passwords from the Intune console, since those are technically coming from Entra ID.
 

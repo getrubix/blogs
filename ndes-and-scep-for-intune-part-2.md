@@ -1,10 +1,9 @@
 ---
 author: steve@getrubix.com  
 date: Tue, 11 May 2021 02:41:45 +0000  
-description: '"Before we move on to Part 2, there are two tasks I should have included  
+description: 'Before we move on to Part 2, there are two tasks I should have included  
   in Part 1.First, we need to give the NDES service account permissions to request  
-  and issue certificates.&nbsp; Log into the CA and launch the Certification Authority  
-  console.&nbsp; Right click on the CA and"'  
+  and issue certificates.&nbsp; Log into the CA and launch the Certification Authority.'  
 slug: ndes-and-scep-for-intune-part-2  
 thumbnail: https://getrubixsitecms.blob.core.windows.net/public-assets/content/v1/thumbnails/ndes-and-scep-for-intune-part-2_thumbnail.jpg  
 title: NDES and SCEP for Intune Part 2  
@@ -35,9 +34,8 @@ Head back to the NDES server.  Launch **Computer Management** and add the NDES 
 
 All good?  Terrific.  On to Part 2…
 
-### Part 2: IIS Filters, Azure App Proxy, and the Certificate with the external DNS
-
-#### Configure Request Filtering (NDES)
+## Configure Request Filtering (NDES)
+---
 
 Log into the NDES server and launch the IIS Manager.  Navigate to the **Default Web Site** and select **Request Filtering**.
 
@@ -65,7 +63,8 @@ To further solidify those values, open the Registry Editor on the NDES and navig
 
 ![Picture18.png](https://getrubixsitecms.blob.core.windows.net/public-assets/content/v1/5dd365a31aa1fd743bc30b8e/1620700090337-5XF99PTR016NW5ITIB4P/Picture18.png)
 
-#### Download the Azure App Proxy connector (Azure AD)
+## Download the Azure App Proxy connector (Azure AD)
+---
 
 Login to Azure AD with global administrator rights at [https://aad.portal.azure.com](https://aad.portal.azure.com) and navigate to **Azure Active Directory -> Application Proxy -> Download connector service.** 
 
@@ -73,7 +72,8 @@ Accept the terms and download.
 
 ![Picture19.png](https://getrubixsitecms.blob.core.windows.net/public-assets/content/v1/5dd365a31aa1fd743bc30b8e/1620700117345-NK7IVQKNI5AQL0TIQDWS/Picture19.png)
 
-#### Install the Azure App Proxy connector (NDES)
+## Install the Azure App Proxy connector (NDES)
+---
 
 On the NDES server, launch the _AADApplicationProxyConnectorInstaller.msi_.  Agree to the terms and click **Install**.
 
@@ -89,7 +89,8 @@ Assuming you know the password, you should be all set.
 
 Go ahead and close the installer.
 
-#### Add the on-premise application (Azure AD)
+## Add the on-premise application (Azure AD)
+---
 
 Log back into [https://aad.portal.azure.com](https://aad.portal.azure.com) and make your way back to the app proxy.  You should now see the healthy connection as active and pointing to your NDES server.
 
@@ -105,13 +106,15 @@ Azure will automatically concatenate the external URL.  Copy that into a notepa
 
 Set **Pre-Authentication** to **Passthrough**.  Leave the other values as defaults.  Click **+ Add** when you’re done to save the application.
 
-#### Troubleshooting tip
+## Troubleshooting tip
+---
 
 Be sure the internal URL name does not have any wrong characters or spelling errors, as that will ruin the whole thing.  Like the brilliant mind that I am, I initially entered my internal URL as **http://z0tndes.zerotouch.local** and in reality, it is **http://z0t-ndes.zerotouch.local**. 
 
 That lack of a hyphen sank the whole ship later until I went back and corrected it.
 
-#### Request the NDES certificate (NDES)
+## Request the NDES certificate (NDES)
+---
 
 We’re going to use the same client/server authentication template we made originally, based off the web server template, to authenticate both the NDES to the CA and for the Intune SCEP connector in Part 3.
 

@@ -10,11 +10,12 @@ thumbnail: https://getrubixsitecms.blob.core.windows.net/public-assets/content/v
 title: Chip shortage No problem Windows 365 Endpoint Manager
 ---
 
-# Chip shortage? No Problem – Windows 365 + Endpoint Manager
-
 Despite the challenges around moving to the cloud in addition to functioning amid a global pandemic, many organizations continue to hire at an exponential rate. You’ve got Autopilot and Intune setup to onboard Windows devices for all the new employees starting. There’s just one problem: a major hardware shortage. As if on cue, Microsoft presented a solution for companies of all sizes to get their employees up and running; chip shortage or not.
 
-Enter Windows 365. Here’s the official description per Microsoft:
+## Enter Windows 365
+---
+
+Here’s the official description per Microsoft:
 
 > Windows 365 combines the power and security of the cloud with the versatility and simplicity of the PC. From contractors and interns to software developers and industrial designers, Windows 365 enables a variety of new scenarios for the new world of work.
 
@@ -29,6 +30,7 @@ I’m not going to spend time on all the official ‘getting-started’ shtick; 
 Let’s jump into how to manage these things.
 
 ## Join 'em
+---
 
 The first question is the most obvious; how do we join these devices to our environment? Can they be domain joined, Azure AD joined, or Azure registered? As of this writing, the Windows 365 Enterprise PCs can only be Hybrid Azure AD joined. Support for Azure AD is inbound for the end of 2021 (which probably means first half of 2022). There is another SKU for Windows 365 Business that is only Azure AD joined, but offers far less management capability, so I won’t be discussing it.
 
@@ -47,6 +49,7 @@ Welcome to the computer store of the future
 When a new machine is provisioned, it is automatically Hybrid Azure AD joined and enrolled in Endpoint Manager. So how exactly can I manage this device? Well, you manage it exactly like any other Windows device.
 
 ## Keep them together
+---
 
 Before applying any configuration, I recommend creating an Azure dynamic group for Windows 365 PCs. Azure has a specific property you can use to do this. Use a dynamic query like:
 
@@ -65,6 +68,7 @@ Back “on the ground”, I would also suggest creating an OU in Active Director
 ![Active Directory OU](https://getrubixsitecms.blob.core.windows.net/public-assets/content/v1/5dd365a31aa1fd743bc30b8e/1630598945811-OQQNVF0880XEYFTPLXYJ/2021-09-02+10_12_24-ZTDSDC01.png)
 
 ## Let Intune do its thing
+---
 
 From here on, we can manage these just like any other PC enrolled in Endpoint Manager.
 
@@ -85,6 +89,7 @@ The result on the Windows 365 PC is consistent as well.
 Policy is applied immediately. As shown, Cortana is disabled, the “allow private store only” policy for the app store is applying, and Windows Updates are being managed per my Update for Business rings.
 
 ## How about a side order of Group Policy?
+---
 
 Remember, this device is Hybrid Azure AD joined, which means it does exist in my on-premises Active Directory. I can apply any group policy object to it in addition to Intune configuration.
 
@@ -97,6 +102,7 @@ In this case, the policy includes some basic domain settings, in addition to a n
 Boom! There’s my H Drive, mapped automatically to the Windows 365 PC. No additional steps were needed.
 
 ## So what’s next?
+---
 
 Windows 365 Cloud PCs were officially launched on August 2nd of this year. As you can imagine, we’re barely getting started with exploring all the capabilities. But let’s recap what just happened. After a straight forward Azure network setup, I purchased a license and assigned it to a user, same as an Office 365 license. A dynamic group was created to catch all Cloud PCs. After that, we added that group to some existing policy assignment.
 

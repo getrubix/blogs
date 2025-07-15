@@ -5,7 +5,7 @@ categories:
 - powershell
 - azure
 date: Wed, 12 May 2021 18:42:22 +0000
-description: "Can you smell that? It’s the smell of almost being done deploying SCEP certificates to Windows 10 devices from Intune via the Intune SCEP connector and NDES server. In case you missed it, you can start from Part 1, here. Part 4: Adding the root, deploying SCEP and achieving"
+description: 'Can you smell that? It’s the smell of almost being done deploying SCEP certificates to Windows 10 devices from Intune via the Intune SCEP connector and NDES server.'
 slug: ndes-and-scep-for-intune-part-4
 tags:
 - endpoint manager
@@ -23,10 +23,8 @@ Can you smell that?  It’s the smell of almost being done deploying SCEP certi
 
 _In case you missed it, you can start from Part 1,_ [_here_](https://www.getrubix.com/blog/ndes-and-scep-for-intune-part-1)_._
 
-**Part 4: Adding the root, deploying SCEP and achieving victory**  
-&nbsp;
-
-### **Export the Root Certificate (CA)**
+## **Export the Root Certificate (CA)**
+---
 
 Log into the CA and open an elevated CMD prompt. Type the following:
 
@@ -40,7 +38,8 @@ Obviously, feel free to use whatever path you’re comfortable with for the root
 
 &nbsp;
 
-### **Deploy Trusted Root Certificate Profile (Intune)**
+## **Deploy Trusted Root Certificate Profile (Intune)**
+---
 
 Log into Intune at [https://endpoint.microsoft.com](https://endpoint.microsoft.com) and navigate to:
 
@@ -59,7 +58,8 @@ Assign this profile to a device group.
 
 &nbsp;
 
-### **Configure SCEP Profile (Intune)**
+## **Configure SCEP Profile (Intune)**
+---
 
 Still in Endpoint Manager, create another configuration profile:
 
@@ -88,9 +88,8 @@ Assign the SCEP profile to a device group.
 
 ---
 
-## Epilogue: Troubleshooting
-
-### Validate NDES PowerShell Script
+## TROUBLESHOOTING: Validate NDES PowerShell Script
+---
 
 Use Microsoft’s `Validate-NDESConfiguration.ps1` script, found [here](https://github.com/microsoftgraph/powershell-intune-samples/blob/master/CertificationAuthority/Validate-NDESConfiguration.ps1). Run this on your NDES server.
 
@@ -98,7 +97,8 @@ Use Microsoft’s `Validate-NDESConfiguration.ps1` script, found [here](https://
 
 &nbsp;
 
-### **Test the Azure App Proxy**
+## TROUBLESHOOTING: Test the Azure App Proxy
+---
 
 Navigate to the external URL from any browser. You should see the IIS page:
 
@@ -115,7 +115,8 @@ This is expected—it’s a service, not a browsable site.
 
 &nbsp;
 
-### **If Using Hybrid Join**
+## TROUBLESHOOTING: If Using Hybrid Join
+---
 
 For **Hybrid Azure AD Join** via Autopilot, use this format:
 
@@ -125,7 +126,8 @@ For **Hybrid Azure AD Join** via Autopilot, use this format:
 
 &nbsp;
 
-### **Re-trace Your Steps**
+## TROUBLESHOOTING: Re-trace Your Steps
+---
 
 If things aren’t working, don’t panic. There are a lot of steps and it’s normal to miss one. Repeating the process helps build familiarity.
 
