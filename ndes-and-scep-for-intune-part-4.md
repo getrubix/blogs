@@ -23,7 +23,7 @@ Can you smell that?  It’s the smell of almost being done deploying SCEP certi
 
 _In case you missed it, you can start from Part 1,_ [_here_](https://www.getrubix.com/blog/ndes-and-scep-for-intune-part-1)_._
 
-## **Export the Root Certificate (CA)**
+## Export the Root Certificate (CA)
 ---
 
 Log into the CA and open an elevated CMD prompt. Type the following:
@@ -38,7 +38,7 @@ Obviously, feel free to use whatever path you’re comfortable with for the root
 
 &nbsp;
 
-## **Deploy Trusted Root Certificate Profile (Intune)**
+## Deploy Trusted Root Certificate Profile (Intune)
 ---
 
 Log into Intune at [https://endpoint.microsoft.com](https://endpoint.microsoft.com) and navigate to:
@@ -58,7 +58,7 @@ Assign this profile to a device group.
 
 &nbsp;
 
-## **Configure SCEP Profile (Intune)**
+## Configure SCEP Profile (Intune)
 ---
 
 Still in Endpoint Manager, create another configuration profile:
