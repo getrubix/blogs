@@ -2,7 +2,7 @@
 title: "GetRubix Markdown Styling Showcase"
 author: Sean@getrubix.com
 description: "A visual guide to the markdown used in our blog. it provides example usage of the styling elements you can use"
-date: "2025-07-08"
+date: "1984-11-30"
 thumbnail: "https://getrubixsitecms.blob.core.windows.net/public-assets/content/v1/mardown-glass-tile-blog.png"
 tags:
   - markdown
